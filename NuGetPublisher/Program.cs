@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 
 namespace NuGetPublisher
 {
@@ -10,19 +11,35 @@ namespace NuGetPublisher
             var pat = AskQuestion("Enter your PAT");
             var nugetRepo = new NuGetResource();
             nugetRepo.SetupConnection(username, pat);
-            string searchString = String.Empty;
-            searchString = AskQuestion("Enter searchpattern");
-            while (!string.IsNullOrEmpty(searchString))
-            {
 
-                var packages = nugetRepo.SearchPackages(searchString).Result;
-                foreach (var packageSearchMetadata in packages)
-                {
-                    Console.WriteLine($"{packageSearchMetadata.Title} - {packageSearchMetadata.Description}");
-                }
-                searchString = AskQuestion("Enter searchpattern");
-            }
+            HandleOptions(nugetRepo);
+            
             Console.ReadLine();
+        }
+
+        private static async Task HandleOptions(NuGetResource nugetRepo)
+        {
+            var option = AskQuestion("Two options:" + Environment.NewLine + "1. List packages" + Environment.NewLine + "2. Add package");
+
+            while (!string.IsNullOrEmpty(option))
+            {
+                if (option == "1")
+                {
+
+                    var searchString = AskQuestion("Enter searchpattern");
+                    var packages = await nugetRepo.SearchPackages(searchString);
+                    foreach (var packageSearchMetadata in packages)
+                    {
+                        Console.WriteLine($"{packageSearchMetadata.Title} - {packageSearchMetadata.Description}");
+                    }
+                }
+                else
+                {
+                    await nugetRepo.UploadPackage();
+                }
+
+                option = AskQuestion("Two options: 1. List packages" + Environment.NewLine + "2. Add package");
+            }
         }
 
         private static string AskQuestion(string question)
