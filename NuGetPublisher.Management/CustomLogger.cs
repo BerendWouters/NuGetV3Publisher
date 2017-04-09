@@ -1,7 +1,7 @@
 ﻿using System;
 using NuGet.Common;
 
-namespace NuGetPublisher
+namespace NuGetPublisher.Management
 {
     public class CustomLogger : ILogger
     {

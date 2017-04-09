@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using NuGetPublisher.Management;
 
 namespace NuGetPublisher
 {
@@ -9,15 +10,14 @@ namespace NuGetPublisher
         {
             var username = AskQuestion("Provide your username");
             var pat = AskQuestion("Enter your PAT");
-            var nugetRepo = new NuGetResource();
-            nugetRepo.SetupConnection(username, pat);
+            var nugetRepo = new PackageManager(new NuGetConnection(username, pat));
 
             HandleOptions(nugetRepo);
-            
+
             Console.ReadLine();
         }
 
-        private static async Task HandleOptions(NuGetResource nugetRepo)
+        private static async Task HandleOptions(PackageManager packageManager)
         {
             var option = AskQuestion("Two options:" + Environment.NewLine + "1. List packages" + Environment.NewLine + "2. Add package");
 
@@ -27,7 +27,7 @@ namespace NuGetPublisher
                 {
 
                     var searchString = AskQuestion("Enter searchpattern");
-                    var packages = await nugetRepo.SearchPackages(searchString);
+                    var packages = await packageManager.SearchPackages(searchString);
                     foreach (var packageSearchMetadata in packages)
                     {
                         Console.WriteLine($"{packageSearchMetadata.Title} - {packageSearchMetadata.Description}");
@@ -35,7 +35,7 @@ namespace NuGetPublisher
                 }
                 else
                 {
-                    await nugetRepo.UploadPackage();
+                    await packageManager.UploadPackage();
                 }
 
                 option = AskQuestion("Two options: 1. List packages" + Environment.NewLine + "2. Add package");
