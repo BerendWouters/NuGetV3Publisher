@@ -14,7 +14,7 @@ namespace NuGetPublisher.Management
             _nuGetConnection = nuGetConnection;
         }
 
-        public async Task<IEnumerable<IPackageSearchMetadata>> SearchPackages(string seachString)
+        public async Task<IEnumerable<IPackageSearchMetadata>> SearchPackagesAsync(string seachString)
         {
             var packageMetadataResource = await _nuGetConnection.SourceRepository
                 .GetResourceAsync<PackageSearchResource>();

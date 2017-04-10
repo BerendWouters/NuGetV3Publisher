@@ -27,7 +27,7 @@ namespace NuGetPublisher
                 {
 
                     var searchString = AskQuestion("Enter searchpattern");
-                    var packages = await packageManager.SearchPackages(searchString);
+                    var packages = await packageManager.SearchPackagesAsync(searchString);
                     foreach (var packageSearchMetadata in packages)
                     {
                         Console.WriteLine($"{packageSearchMetadata.Title} - {packageSearchMetadata.Description}");
