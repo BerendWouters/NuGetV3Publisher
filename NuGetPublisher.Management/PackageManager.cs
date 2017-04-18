@@ -27,7 +27,7 @@ namespace NuGetPublisher.Management
         {
             var packageUpload = _nuGetConnection.SourceRepository.GetResource<PackageUpdateResource>();
             var packagePath =
-                "pathtopackage.nupkg";
+                @"C:\Users\beren\Downloads\microsoft.visualbasic.10.1.0.nupkg";
 
             await packageUpload.Push(packagePath, string.Empty, 60, false, s => s, s => s, _nuGetConnection.Logger);
         }

@@ -6,6 +6,11 @@ namespace NuGetPublisher.App.ViewModels
 {
     public class LoginViewModel : BindableBase, ICredentialProvider
     {
+        public LoginViewModel()
+        {
+            UserName = "Username";
+            Password = "Password";
+        }
         private string _password;
         private string _userName;
 

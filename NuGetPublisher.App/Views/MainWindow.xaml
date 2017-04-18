@@ -9,7 +9,7 @@
         Title="MainWindow" Height="350" Width="525">
     <Grid>
         <DockPanel>
-            <views:LoginView DockPanel.Dock="Top"></views:LoginView>
+            <views:LoginView DockPanel.Dock="Top" Width="Auto"></views:LoginView>
             <views:PackageListView DockPanel.Dock="Left"></views:PackageListView>
         </DockPanel>
     </Grid>
