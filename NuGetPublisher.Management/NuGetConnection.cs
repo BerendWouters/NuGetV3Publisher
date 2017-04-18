@@ -15,26 +15,24 @@ namespace NuGetPublisher.Management
         private readonly string _pat;
         private readonly string _username;
 
-        public NuGetConnection(string username, string pat)
+        public NuGetConnection(string username, string pat, string packageUri)
         {
             _logger = new CustomLogger();
             _username = username;
             _pat = pat;
-            SetupConnection();
+            SetupConnection(packageUri);
         }
 
         public SourceRepository SourceRepository { get; private set; }
 
         public ILogger Logger => _logger;
 
-        private void SetupConnection()
+        private void SetupConnection(string packageUri)
         {
             var providers = new List<Lazy<INuGetResourceProvider>>();
             providers.AddRange(Repository.Provider.GetCoreV3()); // Add v3 API support
             providers.AddRange(Repository.Provider.GetCoreV2()); // Add v2 API support
-            var reader = new AppSettingsReader();
-            var nugetSource = reader.GetValue("nugetSource", typeof(string));
-            var packageSource = new PackageSource(nugetSource.ToString())
+            var packageSource = new PackageSource(packageUri)
             {
                 Credentials = PackageSourceCredential.FromUserInput("sourceID", _username, _pat, true)
             };

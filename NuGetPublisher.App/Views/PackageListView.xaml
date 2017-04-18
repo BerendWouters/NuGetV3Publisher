@@ -9,6 +9,7 @@
              mvvm:ViewModelLocator.AutoWireViewModel="True"
              d:DataContext="{d:DesignInstance Type=viewModels:PackageListViewModel}"
              d:DesignHeight="300" d:DesignWidth="300">
+    <Border BorderThickness="4" BorderBrush="LightSteelBlue">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"></RowDefinition>
@@ -51,4 +52,5 @@
             </ItemsControl>
             </ScrollViewer>
     </Grid>
+    </Border>
 </UserControl>

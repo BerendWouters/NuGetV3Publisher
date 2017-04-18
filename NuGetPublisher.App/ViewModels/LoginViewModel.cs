@@ -10,9 +10,11 @@ namespace NuGetPublisher.App.ViewModels
         {
             UserName = "Username";
             Password = "Password";
+            PackageUrl = "Package";
         }
         private string _password;
         private string _userName;
+        private string _packageUrl;
 
         public string UserName
         {
@@ -28,12 +30,19 @@ namespace NuGetPublisher.App.ViewModels
 
         public DelegateCommand ConnectCommand { get; set; }
 
+        public string PackageUrl
+        {
+            get => _packageUrl;
+            set => SetProperty(ref _packageUrl, value);
+        }
+
         public Credentials GetCredentials()
         {
             return new Credentials
             {
                 UserName = UserName,
-                Password = Password
+                Password = Password,
+                PackageUri = PackageUrl
             };
         }
     }

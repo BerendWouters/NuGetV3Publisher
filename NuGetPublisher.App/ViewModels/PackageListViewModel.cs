@@ -52,7 +52,7 @@ namespace NuGetPublisher.App.ViewModels
 
         private async Task<ObservableCollection<NuGetPackage>> SearchPackages(Credentials creds, string searchParam)
         {
-            var manager = new PackageManager(new NuGetConnection(creds.UserName, creds.Password));
+            var manager = new PackageManager(new NuGetConnection(creds.UserName, creds.Password, creds.PackageUri));
 
             List<NuGetPackage> packages = new List<NuGetPackage>();
             try

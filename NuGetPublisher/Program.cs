@@ -10,7 +10,8 @@ namespace NuGetPublisher
         {
             var username = AskQuestion("Provide your username");
             var pat = AskQuestion("Enter your PAT");
-            var nugetRepo = new PackageManager(new NuGetConnection(username, pat));
+            var packageUri = AskQuestion("Enter your package URI");
+            var nugetRepo = new PackageManager(new NuGetConnection(username, pat, packageUri));
 
             HandleOptions(nugetRepo);
 
